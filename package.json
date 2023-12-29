@@ -1,0 +1,27 @@
+{
+  "name": "reply-from-dummy",
+  "description": "Dummy app for testing",
+  "version": "0.0.0",
+  "private": true,
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "@fastify/reply-from": "^9.4.0",
+    "cors": "^2.8.5",
+    "fastify": "^2.15.3",
+    "fastify-oas": "^2.7.2"
+  },
+  "devDependencies": {
+    "prettier": "^3.1.1"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "semi": false,
+    "trailingComma": "all",
+    "printWidth": 100,
+    "singleQuote": false,
+    "arrowParens": "always"
+  }
+}
