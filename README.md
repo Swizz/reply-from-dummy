@@ -23,4 +23,5 @@ Once started Swagger is served at : http://localhost:3000/docs
 Then `Post` id :
 
 - `1-150` for `200` responses
+- `100` for `200` response with `204`
 - `others` for `404` responses

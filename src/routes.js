@@ -12,7 +12,13 @@ module.exports = async function (fastify, opts, done) {
       const post = await (await reply.fetch(`/posts/${request.params.id}`)).json()
 
       if (post.id) {
-        const user = await (await reply.fetch(`/users/${post.userId}`)).json()
+        let user
+
+        if (post.userId !== 39) {
+          user = await (await reply.fetch(`/users/${post.userId}`)).json()
+        } else {
+          user = await (await reply.fetch(`/http/204`)).json()
+        }
 
         post.user = { id: user.id, username: user.username }
         delete post.userId
