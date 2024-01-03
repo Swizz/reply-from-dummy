@@ -32,9 +32,9 @@ fastify.decorateReply("fetch", function (source, opts) {
       onResponse(_, response, result) {
         response.removeHeader("content-length")
 
-        resolve(result)
+        resolve(result) // Should resolve to the fetch response object instead of the stream
       },
-      rewriteRequestHeaders(request, headers) {
+      rewriteRequestHeaders(_, headers) {
         // disable remote cache for testing purposes
         return {
           ...headers,

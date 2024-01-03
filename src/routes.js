@@ -9,18 +9,29 @@ module.exports = async function (fastify, opts, done) {
       },
     },
     async function (request, reply) {
-      const post = await (await reply.fetch(`/posts/${request.params.id}`)).json()
+      const postRequest = await reply.fetch(`/posts/${request.params.id}`)
 
+      const post = await postRequest.json()
+
+      // we will love to be able to test postRequest.status here instead
       if (post.id) {
-        let user
+        const userRequest = await reply.fetch(`/users/${post.userId}`, {
+          method: post.userId !== 39 ? "GET" : "OPTIONS", // Return faked 204 response for userId 39
+        })
 
-        if (post.userId !== 39) {
-          user = await (await reply.fetch(`/users/${post.userId}`)).json()
+        // we will love to be able to test userRequest.request status here instead
+        if (userRequest.readableLength) {
+          const user = await userRequest.json()
+
+          // same here
+          if (!user.id) {
+            return user // returns instead the parsed error of the userRequest
+          }
+
+          post.user = { id: user.id, username: user.username }
         } else {
-          user = await (await reply.fetch(`/http/204`)).json()
+          post.user = {}
         }
-
-        post.user = { id: user.id, username: user.username }
         delete post.userId
 
         post.comments = (
@@ -32,7 +43,7 @@ module.exports = async function (fastify, opts, done) {
         })
       }
 
-      return post
+      return post // returns instead the parsed error of the postRequest
     },
   )
 }
