@@ -1,6 +1,6 @@
 # Fastify reply-from-dummy
 
-Small repository of codes that serves as exemple of our use case in a specific issue
+Small repository of codes that serves as exemple of our use case on a specific issue
 
 ## Requirements
 
